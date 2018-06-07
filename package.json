@@ -4,11 +4,12 @@
   "description": "A webserver for handling lunch items.",
   "main": "main.js",
   "dependencies": {
-    "mongodb": "^3.0.10"
+    "mongodb": "^3.0.10",
+    "npm": "^6.1.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node main.js"
   },
   "author": "zhaeong",
   "license": "ISC"
