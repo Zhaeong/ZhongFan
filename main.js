@@ -15,6 +15,7 @@ var MongoClient = require('mongodb').MongoClient;
 var dbURL = "mongodb+srv://zhongfanadmin:ZhongFan042004@zhongfan-mongodb-zplyp.mongodb.net";
 
 
+var port = process.env.PORT || 8080;
 
 http.createServer(function (req, res) {
 
@@ -68,7 +69,7 @@ http.createServer(function (req, res) {
             return res.end();
         });
   }
-}).listen(8080);
+}).listen(port);
 
 
 function addToLunches(lunchName)
