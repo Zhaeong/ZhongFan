@@ -1,0 +1,15 @@
+{
+  "name": "lunchsite",
+  "version": "1.0.0",
+  "description": "A webserver for handling lunch items.",
+  "main": "main.js",
+  "dependencies": {
+    "mongodb": "^3.0.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zhaeong",
+  "license": "ISC"
+}
