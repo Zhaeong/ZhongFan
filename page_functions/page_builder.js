@@ -5,16 +5,19 @@ const path = require('path');
 module.exports = {
   generateMainPage: function (callback) 
   {
-  	headFile = __basedir + "/frontend/html/main_head.html";
-  	bodyFile = __basedir + "/frontend/html/main_body.html";
+
 
   	var htmlOut = "<!DOCTYPE html><html>";
 
-  	var headerHTML = fs.readFileSync(headFile, "utf8");
-  	var bodyHTML = fs.readFileSync(bodyFile, "utf8");
+  	var headerHTML = fs.readFileSync(__basedir + "/frontend/html/main_head.html", "utf8");
+  	
+    var topToolbarHTML = fs.readFileSync(__basedir + "/frontend/html/StaticItems/top_toolbar.html", "utf8");
 
+    var bodyHTML = fs.readFileSync(__basedir + "/frontend/html/main_body.html", "utf8");
 
   	htmlOut += headerHTML;
+
+    htmlOut += topToolbarHTML;
   	htmlOut += bodyHTML;
 
 
@@ -23,18 +26,29 @@ module.exports = {
 
 
   	callback(htmlOut);
- //  	fs.readFile(filename, function(err, data) 
-	//   	{
-	// 		if (err) 
-	//  		{
-	//       		callback("404 Not Found");
-	//     	} 
-	// 	    callback(data);
-	//     }
-	// );
-    // whatever
+
   },
-  bar: function () {
-    // whatever
+  generateAddLunchPage: function (callback) 
+  {
+    var htmlOut = "<!DOCTYPE html><html>";
+
+    var headerHTML = fs.readFileSync(__basedir + "/frontend/html/main_head.html", "utf8");
+    
+    var topToolbarHTML = fs.readFileSync(__basedir + "/frontend/html/StaticItems/top_toolbar.html", "utf8");
+
+    var bodyHTML = fs.readFileSync(__basedir + "/frontend/html/addLunch_body.html", "utf8");
+
+
+    htmlOut += headerHTML;
+
+    htmlOut += topToolbarHTML;
+    htmlOut += bodyHTML;
+
+
+    htmlOut += "</html>"
+
+
+
+    callback(htmlOut);
   }
 };

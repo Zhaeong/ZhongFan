@@ -35,6 +35,14 @@ http.createServer(function (req, res) {
         res.end();
       });
   	}
+    else if(q.pathname == "/addLunch")
+    {
+      pb.generateAddLunchPage(function(result){   
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(result);
+        res.end();
+      });
+    }
 
   if(req.method == 'POST')
   {
