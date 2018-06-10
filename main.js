@@ -66,14 +66,21 @@ http.createServer(function (req, res) {
             console.log("this is body:" + body);
             var post = qs.parse(body);
 
+            
+
             console.log("Name is: " + post.Name);
 
             console.log("Name is also: " + post['Name']);
-
-            db.addToLunches(post.Name);
-
-            res.writeHead(200, {'Content-Type': 'text/html'});
-            return res.end();
+            
+            db.addToLunches(post.Name, function(response) 
+              {
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.write(response);
+                return res.end();
+              });
+            
+            
+            
         });
   }
 }).listen(port);

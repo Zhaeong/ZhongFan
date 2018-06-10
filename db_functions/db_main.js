@@ -3,7 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 var dbURL = "mongodb+srv://zhongfanadmin:ZhongFan042004@zhongfan-mongodb-zplyp.mongodb.net";
 
 module.exports = {  
-  addToLunches: function(lunchName)
+  addToLunches: function(lunchName, callback)
   {
     MongoClient.connect(dbURL, function(err, db) 
     {
@@ -21,8 +21,12 @@ module.exports = {
       {
         if (err) 
         {
+           callback(err);
            throw err;
+
         }
+
+        callback("Inserted");
         console.log("1 document inserted");
         db.close();
       });
