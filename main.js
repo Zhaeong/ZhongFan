@@ -48,6 +48,12 @@ http.createServer(function (req, res) {
   else if(req.method == 'POST')
   {
 
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+      res.setHeader('Access-Control-Allow-Credentials', true); // If needed
+
+
       res.writeHead(200, {'Content-Type': 'text/html'});
       var q  = url.parse(req.url,true).query;
 
@@ -74,7 +80,7 @@ http.createServer(function (req, res) {
             
             db.addToLunches(post.Name, function(response) 
               {
-                res.writeHead(200, {'Content-Type': 'text/html'});
+                //res.writeHead(200, {'Content-Type': 'text/html'});
                 res.write(response);
                 return res.end();
               });
