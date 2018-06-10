@@ -28,8 +28,8 @@ module.exports = {
       });
 
     }); 
-  },
-
+  }
+  ,
   getAllLunches: function(callback)
   {
     MongoClient.connect(dbURL, function(err, db) 
