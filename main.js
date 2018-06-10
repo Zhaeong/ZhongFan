@@ -8,12 +8,8 @@ var qs = require('querystring');
 
 global.__basedir = __dirname;
 
-var pb = require('./page_functions/page_builder.js')
-
-
-var MongoClient = require('mongodb').MongoClient;
-var dbURL = "mongodb+srv://zhongfanadmin:ZhongFan042004@zhongfan-mongodb-zplyp.mongodb.net";
-
+var pb = require('./page_functions/page_builder.js');
+var db = require('./db_functions/db_main.js');
 
 var port = process.env.PORT || 8080;
 
@@ -22,19 +18,19 @@ http.createServer(function (req, res) {
 	var q = url.parse(req.url, true);
 
 	console.log("The path is:" + q.pathname);
+  console.log("The method is:" + req.method);
 
-
-	var filename = "." + q.pathname;
-
-	if(q.pathname == "/")
-  	{
+  if(req.method == "GET")
+  {
+    if(q.pathname == "/")
+    {
       pb.generateMainPage(function(result){
         var mainPageVal = result;        
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.write(mainPageVal);
         res.end();
       });
-  	}
+    }
     else if(q.pathname == "/addLunch")
     {
       pb.generateAddLunchPage(function(result){   
@@ -43,12 +39,10 @@ http.createServer(function (req, res) {
         res.end();
       });
     }
-
-  if(req.method == 'POST')
+  }
+  else if(req.method == 'POST')
   {
 
-    console.log("This is post:");
-    //console.log(req);
       res.writeHead(200, {'Content-Type': 'text/html'});
       var q  = url.parse(req.url,true).query;
 
@@ -71,7 +65,7 @@ http.createServer(function (req, res) {
 
             console.log("Name is also: " + post['Name']);
 
-            addToLunches(post.Name);
+            db.addToLunches(post.Name);
 
             res.writeHead(200, {'Content-Type': 'text/html'});
             return res.end();
@@ -80,25 +74,3 @@ http.createServer(function (req, res) {
 }).listen(port);
 
 
-function addToLunches(lunchName)
-{
-
-  MongoClient.connect(dbURL, function(err, db) {
-  if (err) 
-   {
-     throw err;
-   }
-  var dbo = db.db("ZhongFan");
-
-
- 
-  var myobj = { lunchName: lunchName };
-
-  dbo.collection("Lunches").insertOne(myobj, function(err, res) {
-    if (err) throw err;
-    console.log("1 document inserted");
-    db.close();
-  });
-}); 
-
-}
