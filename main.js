@@ -29,6 +29,11 @@ http.createServer(function (req, res) {
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.write(mainPageVal);
         res.end();
+
+        db.getAllLunches(function(result)
+        {
+            console.log(result);
+        });
       });
     }
     else if(q.pathname == "/addLunch")
