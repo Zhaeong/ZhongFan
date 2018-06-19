@@ -27,12 +27,19 @@ http.createServer(function (req, res) {
       pb.generateMainPage(function(result){
         var mainPageVal = result;        
         res.writeHead(200, {'Content-Type': 'text/html'});
+        
         res.write(mainPageVal);
-        res.end();
 
         db.getAllLunches(function(result)
         {
-            console.log(result);
+          for(i = 0; i < result.length; i++)
+          {
+            res.write(result[i]['lunchName']);
+            res.write('<br>');
+          }
+
+          res.end();
+
         });
       });
     }
