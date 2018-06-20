@@ -5,8 +5,6 @@ const path = require('path');
 module.exports = {
   generateMainPage: function (callback) 
   {
-
-
   	var htmlOut = "<!DOCTYPE html><html>";
 
   	var headerHTML = fs.readFileSync(__basedir + "/frontend/html/main_head.html", "utf8");
@@ -20,10 +18,7 @@ module.exports = {
     htmlOut += topToolbarHTML;
   	htmlOut += bodyHTML;
 
-
-  	htmlOut += "</html>"
-
-
+  	htmlOut += "</html>";
 
   	callback(htmlOut);
 
