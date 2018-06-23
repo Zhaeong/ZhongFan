@@ -8,7 +8,6 @@ global.__basedir = __dirname;
 
 var pb = require('./page_functions/page_builder.js');
 var db = require('./db_functions/db_main.js');
-
 var util = require('./page_functions/utility.js');
 
 var port = process.env.PORT || 8080;
@@ -25,22 +24,40 @@ http.createServer(function (req, res) {
 
   if(req.method == "GET")
   {
+    console.log("===============================");
     console.log("concat is: " + pathname.slice(-3));
+
 
     //handles file requests of type javascript
     if(pathname.slice(-3) == ".js")
     {
-      util.getJavascriptFile(pathname, function(result)
+      util.getSourceFile(pathname, function(result)
       {
         res.writeHead(200, {'Content-Type': 'text/javascript'});
         res.write(result);
         res.end();
+      });     
+    }
+    else if(pathname.slice(-4) == ".css")
+    {
+      util.getSourceFile(pathname, function(result)
+      {
+        res.writeHead(200, {'Content-Type': 'text/css'});
+        res.write(result);
+        res.end();
       });
     }
-
-    if(pathname == "/")
+    else if(pathname.slice(-4) == "Page")
     {
-      pb.generateMainPage(function(result){
+      pb.generatePage(pathname, function(result){   
+          res.writeHead(200, {'Content-Type': 'text/html'});
+          res.write(result);
+          res.end();
+        });
+    }
+    else if(pathname == "/") //This is the entry point for the main page
+    {
+      pb.generatePage("main", function(result){
         var mainPageVal = result;        
         res.writeHead(200, {'Content-Type': 'text/html'});
         
@@ -53,20 +70,16 @@ http.createServer(function (req, res) {
             res.write(result[i]['lunchName']);
             res.write('<br>');
           }
-
           res.end();
-
         });
       });
-    }
-    else if(pathname == "/addLunch")
+    }      
+    else
     {
-      pb.generateAddLunchPage(function(result){   
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(result);
-        res.end();
-      });
-    }
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write("Not Found, what you tryna do sneakysneaky");
+      res.end();
+    }    
   }
   else if(req.method == 'POST')
   {
