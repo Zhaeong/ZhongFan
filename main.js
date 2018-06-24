@@ -67,8 +67,14 @@ http.createServer(function (req, res) {
         {
           for(i = 0; i < result.length; i++)
           {
-            res.write(result[i]['lunchName']);
-            res.write('<br>');
+            console.log("it is: " + result[i]['Name']);
+
+            if(result[i]['Name'] !== undefined)
+            {
+              res.write(result[i]['Name']);
+              res.write('<br>');
+            }
+            
           }
           res.end();
         });
