@@ -12,8 +12,6 @@ module.exports = {
         throw err;
       }
       var dbo = db.db("ZhongFan");
-
-
    
       var myobj = { Name: lunchName, Description:description, Date:date };
 
@@ -23,7 +21,6 @@ module.exports = {
         {
            callback(err);
            throw err;
-
         }
 
         callback("Inserted");

@@ -9,6 +9,7 @@ global.__basedir = __dirname;
 var pb = require('./page_functions/page_builder.js');
 var db = require('./db_functions/db_main.js');
 var util = require('./page_functions/utility.js');
+var rh = require('./page_functions/request_handler.js');
 
 var port = process.env.PORT || 8080;
 
@@ -57,29 +58,23 @@ http.createServer(function (req, res) {
     }
     else if(pathname == "/") //This is the entry point for the main page
     {
-      pb.generatePage("main", function(result){
-        var mainPageVal = result;        
+      pb.generatePage("main", function(result)
+      {
         res.writeHead(200, {'Content-Type': 'text/html'});
-        
-        res.write(mainPageVal);
-
-        db.getAllLunches(function(result)
+        res.write(result);
+        res.end();
+      
+      });
+    }
+    else if(pathname.slice(-7) == "Request")
+    {
+      rh.handleClientRequest(pathname, function(result)
         {
-          for(i = 0; i < result.length; i++)
-          {
-            console.log("it is: " + result[i]['Name']);
-
-            if(result[i]['Name'] !== undefined)
-            {
-              res.write(result[i]['Name']);
-              res.write('<br>');
-            }
-            
-          }
+          res.writeHead(200, {'Content-Type': 'application/json'});
+          res.write(JSON.stringify(result));
           res.end();
         });
-      });
-    }      
+    }
     else
     {
       res.writeHead(200, {'Content-Type': 'text/html'});
@@ -125,10 +120,7 @@ http.createServer(function (req, res) {
               //res.writeHead(200, {'Content-Type': 'text/html'});
               res.write(response);
               return res.end();
-            });
-          
-          
-          
+            });  
       });
   }
 }).listen(port);
