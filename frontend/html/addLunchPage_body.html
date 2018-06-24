@@ -1,12 +1,52 @@
 <div class="container">
 
-<h1>Add Lunch Page</h1>
-<p>Enter the Lunch Name.</p>
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Lunch Name</span>
+        </div>
+      <input id="lunchName" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+      </div>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Description</span>
+        </div>
+        <textarea id="inputDescription" class="form-control" aria-label="With textarea"></textarea>
+      </div>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-sm-8">
+      <div class ="input-group" id="sandbox-container">
 
-<input id="lunchName" type="text" name="name_field" value="Lunch Name">
+        <div class="input-group date" id="sandbox-container">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Date</span>
+          </div>
+          <input id="inputDate" type="text" class="form-control">
+          <span class="input-group-addon"></span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<button id="addButton" onclick="addLunchItem()">Add</button>
- 
+  <div class="row">
+    <div class="col-sm-8">
+      <button type="button" class="btn btn-outline-primary" id="addButton" onclick="addLunchItem()">Add</button>
+    </div>
+  </div>
+
 </div>
+
+<script type="text/javascript">
+            $('#sandbox-container .input-group.date').datepicker({
+              format: 'yyyy-mm-dd',
+});
+        </script>

@@ -3,7 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 var dbURL = "mongodb+srv://zhongfanadmin:ZhongFan042004@zhongfan-mongodb-zplyp.mongodb.net";
 
 module.exports = {  
-  addToLunches: function(lunchName, callback)
+  addToLunches: function(lunchName, description, date, callback)
   {
     MongoClient.connect(dbURL, function(err, db) 
     {
@@ -15,7 +15,7 @@ module.exports = {
 
 
    
-      var myobj = { lunchName: lunchName };
+      var myobj = { Name: lunchName, Description:description, Date:date };
 
       dbo.collection("Lunches").insertOne(myobj, function(err, res) 
       {

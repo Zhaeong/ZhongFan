@@ -38,7 +38,7 @@ http.createServer(function (req, res) {
         res.end();
       });     
     }
-    else if(pathname.slice(-4) == ".css")
+    else if(pathname.slice(-4) == ".css" || pathname.slice(-4) == ".map" || pathname.slice(-4) == "woff")
     {
       util.getSourceFile(pathname, function(result)
       {
@@ -108,11 +108,13 @@ http.createServer(function (req, res) {
 
           
 
-          console.log("Name is: " + post.Name);
+          console.log("Name is: " + post.name);
+          console.log("desc is: " + post.description);
+          console.log("Name is: " + post.date);
 
-          console.log("Name is also: " + post['Name']);
+          console.log("Name is also: " + post['name']);
           
-          db.addToLunches(post.Name, function(response) 
+          db.addToLunches(post.name, post.description, post.date, function(response) 
             {
               //res.writeHead(200, {'Content-Type': 'text/html'});
               res.write(response);

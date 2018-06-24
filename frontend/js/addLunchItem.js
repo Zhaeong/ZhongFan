@@ -11,11 +11,15 @@ function addLunchItem()
 {
 	console.log('addButton was clicked');
 
-	var input = document.getElementById('lunchName');
+	var name = document.getElementById('lunchName');
+  var description = document.getElementById('inputDescription');
+  var date = document.getElementById('inputDate');
 
-	console.log('LunchName is:' + input.value);
+	console.log('LunchName is:' + name.value);
+  console.log('desc is:' + description.value);
+  console.log('date is:' + date.value);
 
-	var params = "Name=" + input.value + "&rime=time";
+	var params = "name=" + name.value + "&description=" + description.value + "&date=" + date.value ;
    xmlhttp = new XMLHttpRequest();
    xmlhttp.open("POST","http://localhost:8080/addLunchItem", true);
    xmlhttp.onreadystatechange=function(){
