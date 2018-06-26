@@ -1,11 +1,11 @@
 
-var MongoClient = require('mongodb').MongoClient;
+var mongo = require('mongodb');
 var dbURL = "mongodb+srv://zhongfanadmin:ZhongFan042004@zhongfan-mongodb-zplyp.mongodb.net";
 
 module.exports = {  
   addToLunches: function(lunchName, description, date, callback)
   {
-    MongoClient.connect(dbURL, function(err, db) 
+    mongo.MongoClient.connect(dbURL, function(err, db) 
     {
       if (err) 
       {
@@ -33,7 +33,7 @@ module.exports = {
   ,
   getAllLunches: function(callback)
   {
-    MongoClient.connect(dbURL, function(err, db) 
+    mongo.MongoClient.connect(dbURL, function(err, db) 
     {
       if (err) throw err;
       var dbo = db.db("ZhongFan");
@@ -44,5 +44,44 @@ module.exports = {
       });
 
     });
+  }
+  ,
+  getLunchInfo: function(lunchID, callback)
+  {
+
+    console.log("trying to get info of: " + lunchID);
+
+    var o_id = new mongo.ObjectID(lunchID);
+    var query = { _id: o_id };
+
+    mongo.MongoClient.connect(dbURL, function(err, db) 
+    {
+      if (err) throw err;
+      var dbo = db.db("ZhongFan");
+      dbo.collection("Lunches").findOne(query, function(err, result) {
+        if (err) throw err;       
+        callback(result);
+        db.close();
+      });
+    }); 
+  }
+  ,
+  updateLunchInfo: function(lunchID, lunchName, lunchDesc, lunchDate, lunchRating, callback)
+  {
+    var o_id = new mongo.ObjectID(lunchID);
+    var query = { _id: o_id };
+    var myobj = { Name: lunchName, Description:lunchDesc, Date:lunchDate, Rating:lunchRating };
+
+    mongo.MongoClient.connect(dbURL, function(err, db) 
+    {
+      if (err) throw err;
+      var dbo = db.db("ZhongFan");
+
+      dbo.collection("Lunches").updateOne(query, {$set: myobj}, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+        db.close();
+      });
+    }); 
   }
 }

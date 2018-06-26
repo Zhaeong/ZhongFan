@@ -1,0 +1,74 @@
+<div class="container" id = "lunchesDisplay">
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Lunch Name</span>
+        </div>
+      <input id="inputLunchName" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" disabled>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Description</span>
+        </div>
+        <textarea id="inputDescription" class="form-control" aria-label="With textarea" disabled></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div class ="input-group" id="sandbox-container">
+
+        <div class="input-group date" id="sandbox-container">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Date</span>
+          </div>
+          <input id="inputDate" type="text" class="form-control" disabled>
+          <span class="input-group-addon"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+   <div class="row">
+    <div class="col-sm-8">
+      <div class ="input-group" id="sandbox-container">
+<div class="input-group-prepend">
+            <span class="input-group-text">Rating</span>
+          </div>
+       
+        	<label class="radio-inline">1<input type="radio" value="1" name="ratings"></label>
+        	<label class="radio-inline">2<input type="radio" value="2" name="ratings"></label>
+        	<label class="radio-inline">3<input type="radio" value="3" name="ratings"></label>
+        	<label class="radio-inline">4<input type="radio" value="4" name="ratings"></label>
+        	<label class="radio-inline">5<input type="radio" value="5" name="ratings"></label>
+
+	<span class="input-group-addon"></span>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-sm-1">
+      <button type="button" class="btn btn-outline-primary" id="toggleEdit" onclick="toggleEdit()">Edit</button>
+    </div>
+    <div class="col-sm-1">
+      <button type="button" class="btn btn-outline-primary" id="submit" onclick="submitLunchInfo()">Submit</button>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+  getLunchInfoFromDB();
+</script>

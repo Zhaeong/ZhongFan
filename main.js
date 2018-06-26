@@ -18,9 +18,17 @@ http.createServer(function (req, res) {
 	var q = url.parse(req.url, true);
 
   var pathname = q.pathname;
+
+  //Returns a key value object containing the parameters
+  var paramObj = q.query;
 	console.log("The path is:" + pathname);
   console.log("The params is:");
-  console.log(q.query);
+  console.log(paramObj);  
+
+  var numParams = Object.keys(paramObj).length;
+
+  console.log("the number of params is:" + numParams);
+
   console.log("The method is:" + req.method);
 
   if(req.method == "GET")
@@ -50,11 +58,24 @@ http.createServer(function (req, res) {
     }
     else if(pathname.slice(-4) == "Page")
     {
-      pb.generatePage(pathname, function(result){   
+      if(numParams == 0)
+      {
+        pb.generatePage(pathname, function(result){   
           res.writeHead(200, {'Content-Type': 'text/html'});
           res.write(result);
           res.end();
         });
+      }
+      else
+      {        
+        console.log("more than one param");
+        pb.generagePageWithParams(pathname, paramObj, function(result){   
+          res.writeHead(200, {'Content-Type': 'text/html'});
+          res.write(result);
+          res.end();
+        });
+      }
+      
     }
     else if(pathname == "/") //This is the entry point for the main page
     {
@@ -68,7 +89,7 @@ http.createServer(function (req, res) {
     }
     else if(pathname.slice(-7) == "Request")
     {
-      rh.handleClientRequest(pathname, function(result)
+      rh.handleClientRequest(pathname, paramObj, function(result)
         {
           res.writeHead(200, {'Content-Type': 'application/json'});
           res.write(JSON.stringify(result));
