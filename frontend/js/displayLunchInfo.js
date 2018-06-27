@@ -34,6 +34,8 @@ function toggleEdit()
     document.getElementById("inputDate").disabled = false;
     document.getElementById("deleteLunchItem").disabled = false;
 
+    document.getElementById("toggleEdit").innerHTML = "Edit ON";
+
     disabled = false;
   }
   else
@@ -42,6 +44,8 @@ function toggleEdit()
     document.getElementById("inputDescription").disabled = true;
     document.getElementById("inputDate").disabled = true;
     document.getElementById("deleteLunchItem").disabled = true;
+
+    document.getElementById("toggleEdit").innerHTML = "Edit OFF";
     disabled = true;
   }
 }
@@ -77,11 +81,7 @@ function deleteLunchItem()
   var lunchNameDiv = document.getElementById('lunchName');
   var lunchID  = lunchNameDiv.getAttribute('name');
 
-
-  var param = "lunchID=" + lunchID;
-
-
- 
+  var param = "lunchID=" + lunchID; 
 
   $.ajax({
     type: "GET",
