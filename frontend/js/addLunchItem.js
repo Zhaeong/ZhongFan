@@ -17,7 +17,7 @@ function addLunchItem()
 
 	var params = "name=" + name.value + "&description=" + description.value + "&date=" + date.value ;
    xmlhttp = new XMLHttpRequest();
-   xmlhttp.open("POST","http://localhost:8080/addLunchItem", true);
+   xmlhttp.open("POST","addLunchItem", true);
    xmlhttp.onreadystatechange=function(){
          if (xmlhttp.readyState==4 && xmlhttp.status==200){
            string=xmlhttp.responseText;
