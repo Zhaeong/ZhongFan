@@ -30,6 +30,13 @@ module.exports = {
 	        })
 
 	    	break;
+	    case "/deleteLunchItemRequest":
+	    	db.deleteLunchItem(paramObj.lunchID ,function(result)
+	        {	        	
+	        	callback(result);
+	        })
+
+	    	break;
 	    default:
 	        callback("Couldn't find the request handler")
 	} 

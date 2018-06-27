@@ -80,8 +80,28 @@ module.exports = {
       dbo.collection("Lunches").updateOne(query, {$set: myobj}, function(err, res) {
         if (err) throw err;
         console.log("1 document updated");
+        callback("SUCCESS");
         db.close();
       });
     }); 
+  }
+
+  ,
+
+  deleteLunchItem: function(lunchID, callback)
+  {
+    mongo.MongoClient.connect(dbURL, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("ZhongFan");
+    var o_id = new mongo.ObjectID(lunchID);
+    var query = { _id: o_id };
+
+    dbo.collection("Lunches").deleteOne(query, function(err, obj) {
+      if (err) throw err;
+      console.log("1 document deleted");
+      callback("DELETED");
+      db.close();
+    });
+  }); 
   }
 }
